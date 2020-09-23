@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+    <div ng-app="">
+        Last name:<input type="text" ng-model="lastName" value ="Last name"><br>
+        First name:<input type="text" ng-model="firstName" value = "First name"><br>
+        Date:<input type="date" ng-model="date"><br>
+        Facult: <br>
+        <label>
+            <input type="radio" ng-model="facult.name" name="facultname" value="Chemistry">
+            Chemistry
+        </label><br/>
+        <label>
+            <input type="radio" ng-model="facult.name" name="facultname" value="Math">
+            Math
+        </label><br/>
+        <label>
+            <input type="radio" ng-model="facult.name" name="facultname" value ="Informatics">
+            Informatics
+        </label><br/>
+        <label for="singleSelect"> Subject: </label><br>
+            <select name="singleSelect" ng-model="select">
+                 <option value="Organic chemistry">Organic chemistry</option>
+                 <option value="Math with economy">Math with economy</option>
+            </select><br>
+        Salary: <input ng-model="salary" ng-change="update()">
+        <div>
+            <div ng-if="salary <= 3000">
+                <p>Мало</p>
+            </div>
+            <div ng-if="salary >= 10000">
+                <p>Много</p>
+            </div>
+        </div>
+
+        <button type="button" name="accept" ng-disabled = "salary >= 10000" ng-init="tmp = false" ng-click="tmp = true" >Accept</button>
+        <button type="button" name="decline">Decline</button>
+
+        <div ng-if="tmp">
+            <p>Last name:{{lastName}}</p>
+            <p>First name:{{firstName}}</p>
+            <p>Date:{{date}}</p>
+            <p>Facult:{{facult.name}}</p>
+            <p>Subject:{{select}}</p>
+            <p>Salary:{{salary}}</p>
+        </div>
+    </div>
+</body>
+</html>
