@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+
+        <p>Select a student:</p>
+
+            <select ng-model="selectedStudent">
+            <option ng-repeat="x in names" ng-value="{{x}}"> {{x.Firstname}} </option>
+            </select>
+
+        <h1>You selected: {{selectedStudent.Firstname}} {{selectedStudent.Lastname}} - {{selectedStudent.mark}}</h1>
+
+    </div>
+
+    <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $scope.names = [
+            {Firstname:'Jani',Lastname:'Smith' ,mark:'8'},
+            {Firstname:'Carl',Lastname:'Ivanov' ,mark:'9'},
+            {Firstname:'Margareth',Lastname:'Suit' ,mark:'6'},
+            {Firstname:'Hege',Lastname:'Kemberg' ,mark:'10'},
+            {Firstname:'Joe',Lastname:'Pol' ,mark:'8'},
+            {Firstname:'Gustav',Lastname:'French' ,mark:'7'},
+            {Firstname:'Birgit',Lastname:'Bag' ,mark:'9'},
+            {Firstname:'Mary',Lastname:'Sweet' ,mark:'10'},
+            {Firstname:'Kai',Lastname:'Ran' ,mark:'6'}
+            ];
+    });
+    </script>
+</body>
+</html>

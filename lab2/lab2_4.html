@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        Enter your number: <input ng-model="powerNumber" type="number" ng-change="update()">
+        <p>The POWER of number is: {{result}}</p>
+    </div>
+
+    <script>
+    var app = angular.module('myApp', []);
+
+
+    app.controller('myCtrl', function($scope, power) {
+        $scope.powerNumber = 1;
+        $scope.result = 1;
+
+        $scope.update = function() {
+          $scope.result = power.myFunc($scope.powerNumber);
+        };
+    });
+
+    app.service('power', function() {
+        this.myFunc = function (x) {
+            return Math.pow(x, 2);
+        }
+    });
+
+    </script>
+</body>
+</html>
