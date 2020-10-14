@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="modal_style.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<style>
+    #goods{
+        border: 1px solid black;
+        border-radius: 10px;
+        margin-left: 5%;
+        margin-bottom: 5%
+    }
+    li{
+        margin-left: 10px;
+    }
+    header{
+        border-bottom: 1px dotted black;
+    }
+    #name, #price {
+        text-align: center;
+        border: none;
+        width: inherit;
+        background: none;
+        color: black;
+    }
+    img{
+        width: inherit;
+        height: 130px;
+    }
+</style>
+<body>
+    <div ng-app="myApp" ng-controller="namesCtrl">
+        <header class="container">
+            <h1>MC Hollow!</h1>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Menu</a>
+                </li>
+                <li>
+                    <a role="button" type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter"> Autentification</a>
+                </li>
+                <li>
+                    <label for="search" >Search</label><input type="text" ng-model="search" name="search">
+                </li>
+                <li>
+                    <input type="button" class="btn btn-secondary" name="add" value="Add New" ng-show="all == 0" ng-click="addnew()">
+                </li>
+            </ul>
+        </header>
+        <br> <br>
+        <div class="container" ng-init="all = 1" >
+            <div class="row">
+                <div class="col-sm-2" ng-repeat="x in names | filter:search" id="goods">
+                    <img src="{{x.src}}" alt="">
+                    <input type="text" value="{{x.name}}" ng-disabled="all" id="name" ng-update='change()'>
+                    <input type="text" value="{{x.price}}" ng-disabled="all" id="price" ng-update='change()'>
+                    <input type="button" class="btn btn-first" name="delete" value="Delete" ng-show="all == 0" role="button" ng-click="names.splice($index, 1)">
+                    <input type="button" class="btn btn-secondary" name="buy" value="Take It">
+                </div>
+            </div>
+            {{result}} {{all}}
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form ng-submit="update()">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Autentification</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-xs-8 col-sm-6">
+                                            <label for="login">Login:</label><br>
+                                            <label for="pass">Password:</label>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-6">
+                                            <input type="text" id="login" ng-model="login"><br>
+                                            <input type="password" id="pass" ng-model="pass">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" role="button" value="Submit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+var app = angular.module('myApp', []);
+
+app.controller('namesCtrl', function($scope, aut) {
+    $scope.names = [
+        {name:'Pepperony',price:85, src:'pepperony.jpg'},
+        {name:'Margherita',price:75, src:'margherita.jpg'},
+        {name:'Diablo',price:85, src:'diablo.jpg'},
+        {name:'Rancho',price:85, src:'rancho.jpg'},
+        {name:'Mario',price:85, src:'mario.jpg'}
+        ];
+
+    $scope.result = 0;
+    $scope.update = function() {
+        $scope.result = aut.myFunc($scope.login, $scope.pass);
+        if ($scope.result == 1)
+        {
+            $scope.all = 0;
+            $('#exampleModalCenter').modal('hide');
+        }
+    };
+    $scope.addnew = function() {
+        $scope.names.push({name:'Deafault',price:0,src:'pizza.jpg'});
+    }
+});
+
+
+app.service('aut', function() {
+    this.myFunc = function (login, pass) {
+        if (login == 'admin' && pass == 'admin')
+        {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+});
+
+
+
+</script>
+
+</html>
